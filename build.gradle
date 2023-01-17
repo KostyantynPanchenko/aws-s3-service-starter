@@ -25,8 +25,10 @@ dependencyManagement {
 dependencies {
     annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'software.amazon.awssdk:s3:2.19.17'
+    compileOnly 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.openpojo:openpojo:0.9.1'
 }

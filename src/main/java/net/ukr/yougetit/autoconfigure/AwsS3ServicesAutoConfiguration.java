@@ -1,5 +1,7 @@
 package net.ukr.yougetit.autoconfigure;
 
+import net.ukr.yougetit.service.AwsS3Service;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -21,5 +23,11 @@ public class AwsS3ServicesAutoConfiguration {
         .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
         .region(Region.of(s3Properties.getRegion()))
         .build();
+  }
+
+  @Bean
+  @ConditionalOnBean(S3Client.class)
+  public AwsS3Service awsS3Service(final S3Client s3Client) {
+    return new AwsS3Service(s3Client);
   }
 }
