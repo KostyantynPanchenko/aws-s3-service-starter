@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.1' apply false
@@ -5,7 +7,7 @@ plugins {
 }
 
 group = 'net.ukr.yougetit'
-version = '0.0.1-SNAPSHOT'
+version = "${currentVersion}"
 sourceCompatibility = '17'
 
 repositories {
@@ -13,9 +15,19 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
 dependencies {
+    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'software.amazon.awssdk:s3:2.19.17'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.openpojo:openpojo:0.9.1'
 }
 
 tasks.named('test') {
