@@ -132,7 +132,7 @@ class AwsS3ServiceTest {
   void testCopyShouldPass() {
     given(s3Client.copyObject(any(CopyObjectRequest.class)))
         .willReturn(CopyObjectResponse.builder().build());
-    sut.copy("source", "copy");
+    sut.copy("fromBucket", "fileName", "toBucket");
   }
 
   @Test
@@ -141,9 +141,9 @@ class AwsS3ServiceTest {
         .willThrow(SdkClientException.create("Boom"));
 
     AwsS3ServiceException thrown = assertThrows(AwsS3ServiceException.class, () ->
-        sut.copy("source", "copy"));
+        sut.copy("fromBucket", "fileName", "toBucket"));
 
-    assertThat(thrown.getMessage()).isEqualTo("Failed to copy the file source");
+    assertThat(thrown.getMessage()).isEqualTo("Failed to copy the file fileName");
   }
 
   @Test

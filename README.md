@@ -4,7 +4,7 @@
 
 * Create an artifact `./gradlew publishToMavenLocal`
 * Set the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables - [Set up AWS Credentials and Region for Development](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html)
-* Add dependency to your Spring Boot app `implementation 'net.ukr.yougetit:aws-s3-services-starter:1.0.0'`
+* Add dependency to your Spring Boot app `implementation 'net.ukr.yougetit:aws-s3-services-starter:1.0.1'`
 * Add configuration properties:
 ```yaml
 config:

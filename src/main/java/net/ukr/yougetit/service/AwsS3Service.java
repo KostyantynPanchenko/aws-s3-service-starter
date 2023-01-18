@@ -64,16 +64,19 @@ public class AwsS3Service {
     }
   }
 
-  public void copy(final String sourceKey, final String destinationKey) {
+  public void copy(final String fromBucket, final String fileName, final String toBucket) {
     final var copyRequest = CopyObjectRequest.builder()
-        .sourceKey(sourceKey)
-        .destinationKey(destinationKey)
+        .sourceKey(fileName)
+        .sourceBucket(fromBucket)
+        .destinationBucket(toBucket)
+        .destinationKey(fileName)
+        .copy()
         .build();
 
     try {
       s3Client.copyObject(copyRequest);
     } catch (final SdkException sdkException) {
-      throw new AwsS3ServiceException("Failed to copy the file " + sourceKey, sdkException);
+      throw new AwsS3ServiceException("Failed to copy the file " + fileName, sdkException);
     }
   }
 
