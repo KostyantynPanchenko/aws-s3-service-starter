@@ -1,6 +1,5 @@
 package net.ukr.yougetit.autoconfigure;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ class AwsS3ServicesAutoConfigurationTest {
 
   @Test
   void testAutoconfigurationShouldBeEnabled() {
-    runner.withPropertyValues("config.aws.s3.enabled=true", "config.aws.s3.region=us-east-1")
+    runner.withPropertyValues("config.aws.s3.region=us-east-1")
         .run(context -> {
           assertTrue(context.containsBean("s3Client"),
               "Application context SHOULD contain bean 's3Client'");
@@ -23,14 +22,4 @@ class AwsS3ServicesAutoConfigurationTest {
         });
   }
 
-  @Test
-  void testAutoconfigurationShouldBeDisabled() {
-    runner.withPropertyValues("config.aws.s3.enabled=false", "config.aws.s3.region=us-east-1")
-        .run(context -> {
-          assertFalse(context.containsBean("s3Client"),
-              "Application context SHOULD NOT contain bean 's3Client'");
-          assertFalse(context.containsBean("awsS3Service"),
-              "Application context SHOULD contain bean 'awsS3Service'");
-        });
-  }
 }

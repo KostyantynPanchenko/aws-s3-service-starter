@@ -92,7 +92,7 @@ class AwsS3ServiceTest {
     Path sourcePath = Paths.get("sourcePath");
     given(s3Client.putObject(any(PutObjectRequest.class), eq(sourcePath))).willReturn(response);
 
-    String result = sut.upload("bucket", "fileName", sourcePath);
+    String result = sut.upload("bucket", sourcePath);
     assertThat(result).isEqualTo("eTag");
   }
 
@@ -103,9 +103,9 @@ class AwsS3ServiceTest {
         .willThrow(SdkClientException.create("Boom"));
 
     AwsS3ServiceException thrown = assertThrows(AwsS3ServiceException.class, () ->
-        sut.upload("bucket", "fileName", sourcePath));
+        sut.upload("bucket", sourcePath));
 
-    assertThat(thrown.getMessage()).isEqualTo("Failed to upload the file fileName");
+    assertThat(thrown.getMessage()).isEqualTo("Failed to upload the file sourcePath");
     assertThat(thrown.getCause()).isInstanceOf(SdkClientException.class);
   }
 

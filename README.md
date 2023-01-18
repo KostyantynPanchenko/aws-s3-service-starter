@@ -10,7 +10,6 @@
 config:
   aws:
     s3:
-      enabled: true
       region: us-east-1 # specify your region
 ```
 * Inject bean of type `AwsS3Service`:
@@ -34,7 +33,7 @@ public class SomeService {
 
   // upload
   final Path sourcePath = Paths.get("somePath");
-  final String eTag = awsS3Service.upload("bucket", "fileName", sourcePath);
+  final String eTag = awsS3Service.upload("bucket", sourcePath);
 
   // delete
   awsS3Service.delete("bucket", "fileName");
@@ -46,6 +45,7 @@ public class SomeService {
 ### Reference Documentation
 For further reference, please consider the following sections:
 
+* [Creating Your Own Auto-configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-auto-configuration)
 * [Official Gradle documentation](https://docs.gradle.org)
 * [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.0.1/gradle-plugin/reference/html/)
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.0.1/gradle-plugin/reference/html/#build-image)

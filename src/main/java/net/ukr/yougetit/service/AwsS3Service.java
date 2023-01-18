@@ -37,16 +37,17 @@ public class AwsS3Service {
     }
   }
 
-  public String upload(final String bucket, final String fileName, final Path sourcePath) {
+  public String upload(final String bucket, final Path sourcePath) {
     final var putRequest = PutObjectRequest.builder()
         .bucket(bucket)
-        .key(fileName)
+        .key(sourcePath.getFileName().toString())
         .build();
 
     try {
       return s3Client.putObject(putRequest, sourcePath).eTag();
     } catch (final SdkException sdkException) {
-      throw new AwsS3ServiceException("Failed to upload the file " + fileName, sdkException);
+      throw new AwsS3ServiceException(
+          "Failed to upload the file " + sourcePath.getFileName().toString(), sdkException);
     }
   }
 
